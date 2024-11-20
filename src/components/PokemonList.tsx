@@ -13,6 +13,20 @@ const Container = styled.div`
 const MainContent = styled.div`
   margin-left: 240px;
   width: calc(100% - 200px);
+  position: relative;
+`;
+
+const LoadingOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 `;
 
 const PokemonGrid = styled.div`                                                                                      
@@ -62,12 +76,15 @@ const PokemonList: React.FC = () => {
      fetchPokemon();                                                                                                  
    }, [selectedType]);                                                                                            
                                                                                                                       
-   if (loading) return <div>Loading...</div>;                                                                         
-                                                                                                                      
    return (
      <Container>
        <TypeFilter selectedType={selectedType} onTypeSelect={setSelectedType} />
        <MainContent>
+         {loading && (
+           <LoadingOverlay>
+             <div>Loading...</div>
+           </LoadingOverlay>
+         )}
          <PokemonGrid>                                                                                                    
            {pokemon.map((p) => (                                                                                          
              <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
