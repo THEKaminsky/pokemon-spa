@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';                                                                  
-import { getPokemonList } from '../services/pokemonApi';                                                             
+import { getPokemonList, getPokemonsByType } from '../services/pokemonApi';                                                             
 import { PokemonListItem } from '../types/pokemon';                                                                  
 import styled from 'styled-components';
+import TypeFilter from './TypeFilter';
 import PokemonDetail from './PokemonDetail';
 import { capitalize } from '../utils/stringUtils';
                                                                                                                       
@@ -29,6 +30,7 @@ const PokemonList: React.FC = () => {
    const [pokemon, setPokemon] = useState<PokemonListItem[]>([]);                                                     
    const [loading, setLoading] = useState(true);
    const [selectedPokemon, setSelectedPokemon] = useState<string | null>(null);
+   const [selectedType, setSelectedType] = useState<string | null>(null);
                                                                                                                       
    useEffect(() => {                                                                                                  
      const fetchPokemon = async () => {                                                                               
