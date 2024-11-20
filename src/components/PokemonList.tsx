@@ -3,6 +3,7 @@ import { getPokemonList } from '../services/pokemonApi';
 import { PokemonListItem } from '../types/pokemon';                                                                  
 import styled from 'styled-components';
 import PokemonDetail from './PokemonDetail';
+import { capitalize } from '../utils/stringUtils';
                                                                                                                       
 const PokemonGrid = styled.div`                                                                                      
    display: grid;                                                                                                     
@@ -51,7 +52,7 @@ const PokemonList: React.FC = () => {
        <PokemonGrid>                                                                                                    
          {pokemon.map((p) => (                                                                                          
            <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
-             <h3>{p.name}</h3>                                                                                          
+             <h3>{capitalize(p.name)}</h3>                                                                                          
            </PokemonCard>                                                                                               
          ))}                                                                                                            
        </PokemonGrid>
