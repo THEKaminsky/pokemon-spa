@@ -71,7 +71,7 @@ return (
     <ModalOverlay onClick={onClose}>
       <DetailContainer onClick={e => e.stopPropagation()}>                                                                                                
         <CloseButton onClick={onClose}>Close</CloseButton>                                                                 
-        <h1>{pokemon.name}</h1>                                                                                        
+        <h1>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>                                                                                        
         <img src={pokemon.sprites.front_default} alt={pokemon.name} />                                                 
         <div>                                                                                                          
             <p>Height: {pokemon.height / 10}m</p>                                                                        

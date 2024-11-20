@@ -51,7 +51,7 @@ const PokemonList: React.FC = () => {
        <PokemonGrid>                                                                                                    
          {pokemon.map((p) => (                                                                                          
            <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
-             <h3>{p.name}</h3>                                                                                          
+             <h3>{p.name.charAt(0).toUpperCase() + p.name.slice(1)}</h3>                                                                                          
            </PokemonCard>                                                                                               
          ))}                                                                                                            
        </PokemonGrid>
