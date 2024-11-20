@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const MainContent = styled.div`
-  margin-left: 200px;
+  margin-left: 240px;
   width: calc(100% - 200px);
 `;
 
