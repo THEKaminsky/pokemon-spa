@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';                                                                  
 import { getPokemonDetail } from '../services/pokemonApi';                                                           
-import { PokemonDetail } from '../types/pokemon';                                                  
+import { PokemonDetail } from '../types/pokemon';  
+import { capitalize } from '../utils/stringUtils';                                                
 import styled from 'styled-components';                                                                              
 
 const ModalOverlay = styled.div`
@@ -71,7 +72,7 @@ return (
     <ModalOverlay onClick={onClose}>
       <DetailContainer onClick={e => e.stopPropagation()}>                                                                                                
         <CloseButton onClick={onClose}>Close</CloseButton>                                                                 
-        <h1>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>                                                                                        
+        <h1>{capitalize(pokemon.name)}</h1>                                                                                        
         <img src={pokemon.sprites.front_default} alt={pokemon.name} />                                                 
         <div>                                                                                                          
             <p>Height: {pokemon.height / 10}m</p>                                                                        
