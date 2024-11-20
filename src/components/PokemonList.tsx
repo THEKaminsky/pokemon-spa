@@ -6,6 +6,15 @@ import TypeFilter from './TypeFilter';
 import PokemonDetail from './PokemonDetail';
 import { capitalize } from '../utils/stringUtils';
                                                                                                                       
+const Container = styled.div`
+  display: flex;
+`;
+
+const MainContent = styled.div`
+  margin-left: 200px;
+  width: calc(100% - 200px);
+`;
+
 const PokemonGrid = styled.div`                                                                                      
    display: grid;                                                                                                     
    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));                                                      
@@ -34,9 +43,15 @@ const PokemonList: React.FC = () => {
                                                                                                                       
    useEffect(() => {                                                                                                  
      const fetchPokemon = async () => {                                                                               
+       setLoading(true);
        try {                                                                                                          
-         const data = await getPokemonList(151); // First 151 Pokemon                                                 
-         setPokemon(data.results);                                                                                    
+         if (selectedType) {
+           const pokemonOfType = await getPokemonsByType(selectedType);
+           setPokemon(pokemonOfType);
+         } else {
+           const data = await getPokemonList(151); // First 151 Pokemon                                                 
+           setPokemon(data.results);                                                                                    
+         }
        } catch (error) {                                                                                              
          console.error('Error fetching pokemon:', error);                                                             
        } finally {                                                                                                    
@@ -45,26 +60,29 @@ const PokemonList: React.FC = () => {
      };                                                                                                               
                                                                                                                       
      fetchPokemon();                                                                                                  
-   }, []);                                                                                                            
+   }, [selectedType]);                                                                                            
                                                                                                                       
    if (loading) return <div>Loading...</div>;                                                                         
                                                                                                                       
    return (
-     <>
-       <PokemonGrid>                                                                                                    
-         {pokemon.map((p) => (                                                                                          
-           <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
-             <h3>{capitalize(p.name)}</h3>                                                                                          
-           </PokemonCard>                                                                                               
-         ))}                                                                                                            
-       </PokemonGrid>
-       {selectedPokemon && (
-         <PokemonDetail
-           pokemonName={selectedPokemon}
-           onClose={() => setSelectedPokemon(null)}
-         />
-       )}
-     </>                                                                                                   
+     <Container>
+       <TypeFilter selectedType={selectedType} onTypeSelect={setSelectedType} />
+       <MainContent>
+         <PokemonGrid>                                                                                                    
+           {pokemon.map((p) => (                                                                                          
+             <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
+               <h3>{capitalize(p.name)}</h3>                                                                                          
+             </PokemonCard>                                                                                               
+           ))}                                                                                                            
+         </PokemonGrid>
+         {selectedPokemon && (
+           <PokemonDetail
+             pokemonName={selectedPokemon}
+             onClose={() => setSelectedPokemon(null)}
+           />
+         )}
+       </MainContent>
+     </Container>                                                                                                   
    );                                                                                                                 
  };                                                                                                                   
                                                                                                                       
