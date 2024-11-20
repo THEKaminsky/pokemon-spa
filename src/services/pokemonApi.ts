@@ -1,5 +1,5 @@
 import axios from 'axios';                                                                                           
-import { PokemonListResponse, PokemonDetail } from '../types/pokemon';                                               
+import { PokemonListResponse, PokemonDetail, PokemonListItem } from '../types/pokemon';                                               
                                                                                                                      
 const BASE_URL = 'https://pokeapi.co/api/v2';                                                                        
                                                                                                                      
@@ -10,6 +10,11 @@ export const getPokemonList = async (limit = 20, offset = 0) => {
   return response.data;                                                                                              
 };                                                                                                                   
                                                                                                                      
+export const getPokemonsByType = async (type: string) => {
+  const response = await axios.get(`${BASE_URL}/type/${type}`);
+  return response.data.pokemon.map((p: { pokemon: PokemonListItem }) => p.pokemon);
+};
+
 export const getPokemonDetail = async (nameOrId: string) => {                                                        
   const response = await axios.get<PokemonDetail>(                                                                   
     `${BASE_URL}/pokemon/${nameOrId}`                                                                                
