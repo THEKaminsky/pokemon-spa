@@ -1,9 +1,34 @@
 import React, { useEffect, useState } from 'react';                                                                  
-import { getPokemonList } from '../services/pokemonApi';                                                             
+import { getPokemonList, getPokemonsByType } from '../services/pokemonApi';                                                             
 import { PokemonListItem } from '../types/pokemon';                                                                  
 import styled from 'styled-components';
+import TypeFilter from './TypeFilter';
 import PokemonDetail from './PokemonDetail';
+import { capitalize } from '../utils/stringUtils';
                                                                                                                       
+const Container = styled.div`
+  display: flex;
+`;
+
+const MainContent = styled.div`
+  margin-left: 240px;
+  width: calc(100% - 200px);
+  position: relative;
+`;
+
+const LoadingOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+`;
+
 const PokemonGrid = styled.div`                                                                                      
    display: grid;                                                                                                     
    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));                                                      
@@ -28,12 +53,19 @@ const PokemonList: React.FC = () => {
    const [pokemon, setPokemon] = useState<PokemonListItem[]>([]);                                                     
    const [loading, setLoading] = useState(true);
    const [selectedPokemon, setSelectedPokemon] = useState<string | null>(null);
+   const [selectedType, setSelectedType] = useState<string | null>(null);
                                                                                                                       
    useEffect(() => {                                                                                                  
      const fetchPokemon = async () => {                                                                               
+       setLoading(true);
        try {                                                                                                          
-         const data = await getPokemonList(151); // First 151 Pokemon                                                 
-         setPokemon(data.results);                                                                                    
+         if (selectedType) {
+           const pokemonOfType = await getPokemonsByType(selectedType);
+           setPokemon(pokemonOfType);
+         } else {
+           const data = await getPokemonList(151); // First 151 Pokemon                                                 
+           setPokemon(data.results);                                                                                    
+         }
        } catch (error) {                                                                                              
          console.error('Error fetching pokemon:', error);                                                             
        } finally {                                                                                                    
@@ -42,26 +74,32 @@ const PokemonList: React.FC = () => {
      };                                                                                                               
                                                                                                                       
      fetchPokemon();                                                                                                  
-   }, []);                                                                                                            
-                                                                                                                      
-   if (loading) return <div>Loading...</div>;                                                                         
+   }, [selectedType]);                                                                                            
                                                                                                                       
    return (
-     <>
-       <PokemonGrid>                                                                                                    
-         {pokemon.map((p) => (                                                                                          
-           <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
-             <h3>{p.name}</h3>                                                                                          
-           </PokemonCard>                                                                                               
-         ))}                                                                                                            
-       </PokemonGrid>
-       {selectedPokemon && (
-         <PokemonDetail
-           pokemonName={selectedPokemon}
-           onClose={() => setSelectedPokemon(null)}
-         />
-       )}
-     </>                                                                                                   
+     <Container>
+       <TypeFilter selectedType={selectedType} onTypeSelect={setSelectedType} />
+       <MainContent>
+         {loading && (
+           <LoadingOverlay>
+             <div>Loading...</div>
+           </LoadingOverlay>
+         )}
+         <PokemonGrid>                                                                                                    
+           {pokemon.map((p) => (                                                                                          
+             <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
+               <h3>{capitalize(p.name)}</h3>                                                                                          
+             </PokemonCard>                                                                                               
+           ))}                                                                                                            
+         </PokemonGrid>
+         {selectedPokemon && (
+           <PokemonDetail
+             pokemonName={selectedPokemon}
+             onClose={() => setSelectedPokemon(null)}
+           />
+         )}
+       </MainContent>
+     </Container>                                                                                                   
    );                                                                                                                 
  };                                                                                                                   
                                                                                                                       
