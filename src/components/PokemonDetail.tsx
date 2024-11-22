@@ -86,16 +86,23 @@ const DetailSection = styled.div`
                                                                                                                     
 const CloseButton = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 8px 16px;
-  background-color: #f0f0f0;
+  top: 15px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  background: transparent;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: color 0.2s ease;
   
   &:hover {
-    background-color: #e0e0e0;
+    color: #000;
   }
 `;
                                                                                                                     
@@ -129,7 +136,7 @@ if (!pokemon) return <div>Pokemon not found</div>;
 return (                                                                                                           
     <ModalOverlay onClick={onClose}>
       <DetailContainer onClick={e => e.stopPropagation()}>                                                                                                
-        <CloseButton onClick={onClose}>Close</CloseButton>                                                                 
+        <CloseButton onClick={onClose}>×</CloseButton>                                                                 
         <ImageSection>
           <img src={pokemon.sprites.front_default} alt={pokemon.name} />
         </ImageSection>
