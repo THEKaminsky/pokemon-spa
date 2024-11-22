@@ -16,6 +16,12 @@ export type PokemonListItem = {
         name: string;                                                                                                  
       };                                                                                                               
     }[];
+    abilities: {
+      ability: {
+        name: string;
+      };
+      is_hidden: boolean;
+    }[];
     cries?: {
       latest: string;
       legacy: string
