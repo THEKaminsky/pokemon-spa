@@ -86,6 +86,27 @@ const DetailSection = styled.div`
     }
   }
 `;
+
+const AbilitiesList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  li {
+    background: #f5f5f5;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.9em;
+    
+    &.hidden {
+      background: #e0e0e0;
+      font-style: italic;
+    }
+  }
+`;
                                                                                                                     
 const CloseButton = styled.button`
   position: absolute;
@@ -168,9 +189,17 @@ return (
             <p><strong>Types:</strong> {pokemon.types.map(t => 
               capitalize(t.type.name)
             ).join(', ')}</p>
-            <p><strong>Abilities:</strong> {pokemon.abilities.map(a => 
-              `${capitalize(a.ability.name)}${a.is_hidden ? ' (Hidden)' : ''}`
-            ).join(', ')}</p>
+            <p>
+              <strong>Abilities:</strong>
+              <AbilitiesList>
+                {pokemon.abilities.map(a => (
+                  <li key={a.ability.name} className={a.is_hidden ? 'hidden' : ''}>
+                    {capitalize(a.ability.name)}
+                    {a.is_hidden && ' (Hidden)'}
+                  </li>
+                ))}
+              </AbilitiesList>
+            </p>
           </div>
         </DetailSection>
       </DetailContainer>    
