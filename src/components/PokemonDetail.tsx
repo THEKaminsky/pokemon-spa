@@ -63,6 +63,9 @@ const DetailSection = styled.div`
     color: #2e3057;
     font-size: 2.5em;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 15px;
   }
   
   .stats {
@@ -143,7 +146,22 @@ return (
           <img src={pokemon.sprites.front_default} alt={pokemon.name} />
         </ImageSection>
         <DetailSection>
-          <h1>{capitalize(pokemon.name)}</h1>
+          <h1>
+            {capitalize(pokemon.name)}
+            {pokemon.cryUrl && (
+              <button 
+                onClick={() => new Audio(pokemon.cryUrl).play()}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '24px'
+                }}
+              >
+                🔊
+              </button>
+            )}
+          </h1>
           <div className="stats">
             <p><strong>Height:</strong> {pokemon.height / 10}m</p>
             <p><strong>Weight:</strong> {pokemon.weight / 10}kg</p>
