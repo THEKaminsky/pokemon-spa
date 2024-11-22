@@ -16,7 +16,11 @@ export type PokemonListItem = {
         name: string;                                                                                                  
       };                                                                                                               
     }[];
-    cryUrl?: string;                                                                                               
+    cries?: {
+      latest: string;
+      legacy: string
+    };  
+    cryUrl?: string                                                                                             
   }                                                                                                                    
                                                                                                                        
   export type PokemonListResponse = {                                                                               
