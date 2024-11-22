@@ -4,6 +4,7 @@ import { PokemonListItem } from '../types/pokemon';
 import styled from 'styled-components';
 import TypeFilter from './TypeFilter';
 import PokemonDetail from './PokemonDetail';
+import SearchBar from './SearchBar';
 import { capitalize } from '../utils/stringUtils';
                                                                                                                       
 const Container = styled.div`
@@ -54,6 +55,7 @@ const PokemonList: React.FC = () => {
    const [loading, setLoading] = useState(true);
    const [selectedPokemon, setSelectedPokemon] = useState<string | null>(null);
    const [selectedType, setSelectedType] = useState<string | null>(null);
+   const [searchTerm, setSearchTerm] = useState('');
                                                                                                                       
    useEffect(() => {                                                                                                  
      const fetchPokemon = async () => {                                                                               
@@ -85,8 +87,11 @@ const PokemonList: React.FC = () => {
              <div>Loading...</div>
            </LoadingOverlay>
          )}
+         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
          <PokemonGrid>                                                                                                    
-           {pokemon.map((p) => (                                                                                          
+           {pokemon
+             .filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
+             .map((p) => (                                                                                          
              <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
                <h3>{capitalize(p.name)}</h3>                                                                                          
              </PokemonCard>                                                                                               
