@@ -168,6 +168,9 @@ return (
             <p><strong>Types:</strong> {pokemon.types.map(t => 
               capitalize(t.type.name)
             ).join(', ')}</p>
+            <p><strong>Abilities:</strong> {pokemon.abilities.map(a => 
+              `${capitalize(a.ability.name)}${a.is_hidden ? ' (Hidden)' : ''}`
+            ).join(', ')}</p>
           </div>
         </DetailSection>
       </DetailContainer>    
