@@ -20,24 +20,89 @@ const ModalOverlay = styled.div`
 const DetailContainer = styled.div`                                                                                  
   max-width: 800px;                                                                                                  
   margin: 0 auto;                                                                                                    
-  padding: 20px;
+  padding: 30px;
   background: white;
   border-radius: 8px;
   position: relative;
-`;                                                                                                                   
+  display: flex;
+  gap: 40px;
+`;
+
+const ImageSection = styled.div`
+  flex-shrink: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 16px;
+  padding: 20px;
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  box-shadow: 
+    20px 20px 60px #d9d9d9,
+    -20px -20px 60px #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.3);
+    }
+  }
+`;
+
+const DetailSection = styled.div`
+  flex-grow: 1;
+  
+  h1 {
+    margin: 0 0 20px 0;
+    color: #2e3057;
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+  
+  .stats {
+    display: grid;
+    gap: 16px;
+    
+    p {
+      margin: 0;
+      font-size: 1.2em;
+      color: #4a4a4a;
+      display: flex;
+      align-items: center;
+      
+      strong {
+        min-width: 80px;
+        color: #2e3057;
+      }
+    }
+  }
+`;
                                                                                                                     
 const CloseButton = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 8px 16px;
-  background-color: #f0f0f0;
+  top: 15px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  background: transparent;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: color 0.2s ease;
   
   &:hover {
-    background-color: #e0e0e0;
+    color: #000;
   }
 `;
                                                                                                                     
@@ -71,14 +136,20 @@ if (!pokemon) return <div>Pokemon not found</div>;
 return (                                                                                                           
     <ModalOverlay onClick={onClose}>
       <DetailContainer onClick={e => e.stopPropagation()}>                                                                                                
-        <CloseButton onClick={onClose}>Close</CloseButton>                                                                 
-        <h1>{capitalize(pokemon.name)}</h1>                                                                                        
-        <img src={pokemon.sprites.front_default} alt={pokemon.name} />                                                 
-        <div>                                                                                                          
-            <p>Height: {pokemon.height / 10}m</p>                                                                        
-            <p>Weight: {pokemon.weight / 10}kg</p>                                                                       
-            <p>Types: {pokemon.types.map(t => t.type.name).join(', ')}</p>                                               
-        </div>                                                                                                         
+        <CloseButton onClick={onClose}>×</CloseButton>                                                                 
+        <ImageSection>
+          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+        </ImageSection>
+        <DetailSection>
+          <h1>{capitalize(pokemon.name)}</h1>
+          <div className="stats">
+            <p><strong>Height:</strong> {pokemon.height / 10}m</p>
+            <p><strong>Weight:</strong> {pokemon.weight / 10}kg</p>
+            <p><strong>Types:</strong> {pokemon.types.map(t => 
+              capitalize(t.type.name)
+            ).join(', ')}</p>
+          </div>
+        </DetailSection>
       </DetailContainer>    
     </ModalOverlay>                                                                                           
 );                                                                                                                 
