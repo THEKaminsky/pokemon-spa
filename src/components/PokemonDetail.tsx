@@ -131,7 +131,9 @@ useEffect(() => {
 }, [pokemonName]);                                                                                                        
                                                                                                                     
 if (loading) return <div>Loading...</div>;                                                                         
-if (!pokemon) return <div>Pokemon not found</div>;                                                                 
+if (!pokemon) return <div>Pokemon not found</div>;      
+
+console.log(pokemon);
                                                                                                                     
 return (                                                                                                           
     <ModalOverlay onClick={onClose}>
