@@ -39,14 +39,15 @@ const PokemonGrid = styled.div`
                                                                                                                       
 const PokemonCard = styled.div`                                                                                    
    padding: 20px;                                                                                                     
-   border: 1px solid #ddd;                                                                                            
+   border: 2px solid #ddd;                                                                                            
    border-radius: 8px;                                                                                                
    color: inherit;                                                                                                    
    text-align: center;                                                                                                
    cursor: pointer;
-                                                                                                                      
+   box-shadow: 
+     20px 20px 60px #d9d9d9;                                                                                                                      
    &:hover {                                                                                                          
-     background-color: #f5f5f5;                                                                                       
+     border-color: pink;                                                                                       
    }                                                                                                                  
 `;                                                                                                                   
                                                                                                                       

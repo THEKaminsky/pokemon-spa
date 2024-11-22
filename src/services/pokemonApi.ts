@@ -3,15 +3,17 @@ import { PokemonListResponse, PokemonDetail, PokemonListItem } from '../types/po
                                                                                                                      
 const BASE_URL = 'https://pokeapi.co/api/v2';                                                                        
                                                                                                                      
-export const getPokemonList = async (limit = 20, offset = 0) => {                                                    
+export const getPokemonList = async (limit = 0, offset = 0) => {                                                    
   const response = await axios.get<PokemonListResponse>(                                                             
     `${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`                                                            
-  );                                                                                                                 
+  );       
+  console.log(response)                                                                                                          
   return response.data;                                                                                              
 };                                                                                                                   
                                                                                                                      
 export const getPokemonsByType = async (type: string) => {
-  const response = await axios.get(`${BASE_URL}/type/${type}`);
+  const response = await axios.get(`${BASE_URL}/type/${type}?limit=151`);
+  console.log(response)
   return response.data.pokemon.map((p: { pokemon: PokemonListItem }) => p.pokemon);
 };
 
