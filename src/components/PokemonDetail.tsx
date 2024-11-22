@@ -30,10 +30,10 @@ const DetailContainer = styled.div`
 
 const ImageSection = styled.div`
   flex-shrink: 0;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 250px;
   border-radius: 16px;
-  padding: 20px;
+  padding: 25px;
   background: linear-gradient(145deg, #ffffff, #f0f0f0);
   box-shadow: 
     20px 20px 60px #d9d9d9,
@@ -59,7 +59,7 @@ const DetailSection = styled.div`
   flex-grow: 1;
   
   h1 {
-    margin: 0 0 20px 0;
+    margin: 10px 0 20px 0;
     color: #2e3057;
     font-size: 2.5em;
     font-weight: bold;
@@ -148,9 +148,9 @@ return (
         <DetailSection>
           <h1>
             {capitalize(pokemon.name)}
-            {pokemon.cryUrl && (
+            {pokemon.cries?.latest && (
               <button 
-                onClick={() => new Audio(pokemon.cryUrl).play()}
+                onClick={() => new Audio(pokemon.cries?.latest).play()}
                 style={{
                   background: 'none',
                   border: 'none',

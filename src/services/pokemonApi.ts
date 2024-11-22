@@ -19,7 +19,5 @@ export const getPokemonDetail = async (nameOrId: string) => {
   const response = await axios.get<PokemonDetail>(                                                                   
     `${BASE_URL}/pokemon/${nameOrId}`                                                                                
   );
-  // Add the cry URL to the response data
-  const cryUrl = `https://play.pokemonshowdown.com/audio/cries/${response.data.name.toLowerCase()}.mp3`;
-  return { ...response.data, cryUrl };                                                                              
+  return { ...response.data };                                                                              
 };  
