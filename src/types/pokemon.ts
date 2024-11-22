@@ -15,7 +15,8 @@ export type PokemonListItem = {
       type: {                                                                                                          
         name: string;                                                                                                  
       };                                                                                                               
-    }[];                                                                                                               
+    }[];
+    cryUrl?: string;                                                                                               
   }                                                                                                                    
                                                                                                                        
   export type PokemonListResponse = {                                                                               
