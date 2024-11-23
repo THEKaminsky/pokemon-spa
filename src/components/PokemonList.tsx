@@ -62,13 +62,8 @@ const PokemonList: React.FC = () => {
      const fetchPokemon = async () => {                                                                               
        setLoading(true);
        try {                                                                                                          
-         if (selectedType) {
-           const pokemonOfType = await getPokemonsByType(selectedType);
-           setPokemon(pokemonOfType);
-         } else {
-           const data = await getPokemonList(151); // First 151 Pokemon                                                 
-           setPokemon(data.results);                                                                                    
-         }
+         const data = await getPokemonList(151); // First 151 Pokemon                                                 
+         setPokemon(data.results);                                                                                    
        } catch (error) {                                                                                              
          console.error('Error fetching pokemon:', error);                                                             
        } finally {                                                                                                    
@@ -77,7 +72,7 @@ const PokemonList: React.FC = () => {
      };                                                                                                               
                                                                                                                       
      fetchPokemon();                                                                                                  
-   }, [selectedType]);                                                                                            
+   }, []);                                                                                            
                                                                                                                       
    return (
      <Container>
@@ -92,6 +87,7 @@ const PokemonList: React.FC = () => {
          <PokemonGrid>                                                                                                    
            {pokemon
              .filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
+             .filter(p => !selectedType || p.types?.some(t => t.type.name === selectedType))
              .map((p) => (                                                                                          
              <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
                <h3>{capitalize(p.name)}</h3>                                                                                          

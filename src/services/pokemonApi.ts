@@ -11,11 +11,6 @@ export const getPokemonList = async (limit = 0, offset = 0) => {
   return response.data;                                                                                              
 };                                                                                                                   
                                                                                                                      
-export const getPokemonsByType = async (type: string) => {
-  const response = await axios.get(`${BASE_URL}/type/${type}?limit=151`);
-  console.log(response)
-  return response.data.pokemon.map((p: { pokemon: PokemonListItem }) => p.pokemon);
-};
 
 export const getPokemonDetail = async (nameOrId: string) => {                                                        
   const response = await axios.get<PokemonDetail>(                                                                   
