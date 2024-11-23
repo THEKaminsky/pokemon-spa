@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';                                                                  
-import { getPokemonList, getPokemonsByType } from '../services/pokemonApi';                                                             
+import { getPokemonList } from '../services/pokemonApi';                                                             
 import { PokemonListItem } from '../types/pokemon';                                                                  
 import styled from 'styled-components';
 import TypeFilter from './TypeFilter';
@@ -51,7 +51,7 @@ const PokemonCard = styled.div`
    }                                                                                                                  
 `;                                                                                                                   
                                                                                                                       
-const PokemonList: React.FC = () => {                                                                                
+const PokemonList = () => {                                                                                
    const [pokemon, setPokemon] = useState<PokemonListItem[]>([]);                                                     
    const [loading, setLoading] = useState(true);
    const [selectedPokemon, setSelectedPokemon] = useState<string | null>(null);
@@ -62,13 +62,8 @@ const PokemonList: React.FC = () => {
      const fetchPokemon = async () => {                                                                               
        setLoading(true);
        try {                                                                                                          
-         if (selectedType) {
-           const pokemonOfType = await getPokemonsByType(selectedType);
-           setPokemon(pokemonOfType);
-         } else {
-           const data = await getPokemonList(151); // First 151 Pokemon                                                 
-           setPokemon(data.results);                                                                                    
-         }
+         const data = await getPokemonList(151); // First 151 Pokemon                                                 
+         setPokemon(data.results);                                                                                    
        } catch (error) {                                                                                              
          console.error('Error fetching pokemon:', error);                                                             
        } finally {                                                                                                    
@@ -77,7 +72,7 @@ const PokemonList: React.FC = () => {
      };                                                                                                               
                                                                                                                       
      fetchPokemon();                                                                                                  
-   }, [selectedType]);                                                                                            
+   }, []);                                                                                            
                                                                                                                       
    return (
      <Container>
@@ -89,9 +84,10 @@ const PokemonList: React.FC = () => {
            </LoadingOverlay>
          )}
          <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-         <PokemonGrid>                                                                                                    
+         <PokemonGrid data-testid="pokemon-grid">                                                                                                    
            {pokemon
              .filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
+             .filter(p => !selectedType || p.types?.some((t: {type: {name: string}}) => t.type.name === selectedType))
              .map((p) => (                                                                                          
              <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
                <h3>{capitalize(p.name)}</h3>                                                                                          

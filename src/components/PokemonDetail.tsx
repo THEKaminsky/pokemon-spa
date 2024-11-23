@@ -10,7 +10,7 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,11 +19,9 @@ const ModalOverlay = styled.div`
                                                                                                                     
 const DetailContainer = styled.div`                                                                                  
   max-width: 800px;                                                                                                  
-  margin: 0 auto;                                                                                                    
   padding: 30px;
   background: white;
   border-radius: 8px;
-  position: relative;
   display: flex;
   gap: 40px;
 `;
@@ -34,7 +32,6 @@ const ImageSection = styled.div`
   height: 250px;
   border-radius: 16px;
   padding: 25px;
-  background: linear-gradient(145deg, #ffffff, #f0f0f0);
   box-shadow: 
     20px 20px 60px #d9d9d9,
     -20px -20px 60px #ffffff;
@@ -135,7 +132,7 @@ interface PokemonDetailViewProps {
   onClose: () => void;
 }
 
-const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({ pokemonName, onClose }) => {                                                                          
+const PokemonDetailView = ({ pokemonName, onClose }: PokemonDetailViewProps) => {                                                                          
   const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);                                               
   const [loading, setLoading] = useState(true);                                                                      
                                                                                                                     
@@ -156,8 +153,6 @@ useEffect(() => {
                                                                                                                     
 if (loading) return <div>Loading...</div>;                                                                         
 if (!pokemon) return <div>Pokemon not found</div>;      
-
-console.log(pokemon);
                                                                                                                     
 return (                                                                                                           
     <ModalOverlay onClick={onClose}>
@@ -204,7 +199,7 @@ return (
         </DetailSection>
       </DetailContainer>    
     </ModalOverlay>                                                                                           
-);                                                                                                                 
+  );                                                                                                                 
 };                                                                                                                   
                                                                                                                       
  export default PokemonDetailView;   
