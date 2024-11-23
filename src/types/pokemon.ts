@@ -1,6 +1,11 @@
 export type PokemonListItem = {                                                                                   
     name: string;                                                                                                      
-    url: string;                                                                                                       
+    url: string;
+    types?: Array<{
+      type: {
+        name: string;
+      };
+    }>;                                                                                                       
   }                                                                                                                    
                                                                                                                        
   export type PokemonDetail = {                                                                                     

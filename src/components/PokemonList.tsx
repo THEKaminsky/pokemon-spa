@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';                                                                  
-import { getPokemonList, getPokemonsByType } from '../services/pokemonApi';                                                             
+import { getPokemonList } from '../services/pokemonApi';                                                             
 import { PokemonListItem } from '../types/pokemon';                                                                  
 import styled from 'styled-components';
 import TypeFilter from './TypeFilter';
@@ -87,7 +87,7 @@ const PokemonList: React.FC = () => {
          <PokemonGrid>                                                                                                    
            {pokemon
              .filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
-             .filter(p => !selectedType || p.types?.some(t => t.type.name === selectedType))
+             .filter(p => !selectedType || p.types?.some((t: {type: {name: string}}) => t.type.name === selectedType))
              .map((p) => (                                                                                          
              <PokemonCard key={p.name} onClick={() => setSelectedPokemon(p.name)}>                                                         
                <h3>{capitalize(p.name)}</h3>                                                                                          
