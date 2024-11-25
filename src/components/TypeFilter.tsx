@@ -8,7 +8,7 @@ const SidebarContainer = styled.div<{ $isOpen: boolean }>`
   background-color: #f5f5f5;
   height: 100vh;
   position: fixed;
-  left: ${props => props.$isOpen ? '0' : '-220px'};
+  left: ${props => props.$isOpen ? '0' : '-240px'};
   top: 0;
   overflow-y: auto;
   transition: left 0.3s ease;
@@ -27,12 +27,16 @@ const ToggleButton = styled.button`
   top: 50%;
   transform: translateY(-50%);
   z-index: 1001;
-  padding: 12px;
-  background: white;
+  padding: 12px 16px;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #333;
+  
+  &:hover {
+    background-color: #f0f0f0;
+  }
 
   @media (max-width: 768px) {
     display: block;
