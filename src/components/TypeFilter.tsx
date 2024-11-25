@@ -24,13 +24,15 @@ const ToggleButton = styled.button`
   display: none;
   position: fixed;
   left: 10px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1001;
-  padding: 8px;
+  padding: 12px;
   background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
   @media (max-width: 768px) {
     display: block;
