@@ -45,9 +45,9 @@ const PokemonCard = styled.div`
    text-align: center;                                                                                                
    cursor: pointer;
    box-shadow: 
-     20px 20px 60px #d9d9d9;                                                                                                                      
+     5px 5px 10px #d9d9d9;                                                                                                                      
    &:hover {                                                                                                          
-     border-color: pink;                                                                                       
+     border-color: rgba(103, 128, 159, 1.0);                                                                                       
    }                                                                                                                  
 `;                                                                                                                   
                                                                                                                       

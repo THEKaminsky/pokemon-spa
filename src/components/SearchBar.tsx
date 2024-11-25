@@ -32,7 +32,7 @@ interface SearchBarProps {
   onSearchChange: (term: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearchChange }) => {
+const SearchBar = ({ searchTerm, onSearchChange } : SearchBarProps) => {
   return (
     <SearchContainer>
       <SearchInput
