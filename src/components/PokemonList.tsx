@@ -51,7 +51,7 @@ const PokemonCard = styled.div`
    }                                                                                                                  
 `;                                                                                                                   
                                                                                                                       
-const PokemonList: React.FC = () => {                                                                                
+const PokemonList = () => {                                                                                
    const [pokemon, setPokemon] = useState<PokemonListItem[]>([]);                                                     
    const [loading, setLoading] = useState(true);
    const [selectedPokemon, setSelectedPokemon] = useState<string | null>(null);
@@ -84,7 +84,7 @@ const PokemonList: React.FC = () => {
            </LoadingOverlay>
          )}
          <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-         <PokemonGrid>                                                                                                    
+         <PokemonGrid data-testid="pokemon-grid">                                                                                                    
            {pokemon
              .filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
              .filter(p => !selectedType || p.types?.some((t: {type: {name: string}}) => t.type.name === selectedType))

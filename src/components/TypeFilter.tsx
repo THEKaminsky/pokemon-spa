@@ -9,6 +9,7 @@ const SidebarContainer = styled.div`
   position: fixed;
   left: 0;
   top: 0;
+  overflow-y: auto;
 `;
 
 const TypeButton = styled.button<{ isSelected: boolean }>`
