@@ -8,7 +8,7 @@ const SidebarContainer = styled.div<{ $isOpen: boolean }>`
   background-color: #f5f5f5;
   height: 100vh;
   position: fixed;
-  left: ${props => props.$isOpen ? '0' : '-240px'};
+  left: ${props => props.$isOpen ? '0' : '-220px'};
   top: 0;
   overflow-y: auto;
   transition: left 0.3s ease;
@@ -71,7 +71,7 @@ const TypeFilter = ({ selectedType, onTypeSelect, isOpen, onToggle } : TypeFilte
   return (
     <>
       <ToggleButton onClick={onToggle}>
-        {isOpen ? '✕' : '☰'}
+        {isOpen ? '◀' : '▶'}
       </ToggleButton>
       <SidebarContainer $isOpen={isOpen}>
       <h2>Filter by Type</h2>
