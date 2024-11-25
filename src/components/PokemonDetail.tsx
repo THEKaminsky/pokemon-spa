@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getPokemonDetail } from '../services/pokemonApi';                                                           
 import { PokemonDetail } from '../types/pokemon';  
 import { capitalize } from '../utils/stringUtils';                                                
-import styled from 'styled-components';                                                                              
+import styled from 'styled-components';     
 
 const ModalOverlay = styled.div`
   position: fixed;
