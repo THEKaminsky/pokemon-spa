@@ -1,10 +1,11 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🎮 Pokédex Web App - Create React App
+Pokédex built with React and TypeScript. Browse, search, and learn about the original 151 Pokémon!
 
 ## Available Scripts
 
-In the project directory, you can run:
+- Search Pokémon by name
+-  Filter by type (Fire, Water, etc.)
+-  Play Pokémon cries
 
 ### `npm start`
 
@@ -29,15 +30,11 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Quick Intro
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+I know it may be silly to do this with Pokémon, but I tend to enjoy using Pokémon as a demo app. A lot of good information to work with, and it contains a lot of interesting ways to filter and search.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+I chose to leave more color out of the app, and focus on the core functionality. I didnt want colors to distract and give off a messy feeling overall. I had the pokemon cards colored to be specific to the pokemon type, same with filter buttons, but it was too much. I also wanted to keep the design simple, so I didnt use a lot of fancy animations or transitions.
 
 ## Learn More
 
