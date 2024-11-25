@@ -51,9 +51,13 @@ const PokemonCard = styled.div`
    text-align: center;                                                                                                
    cursor: pointer;
    box-shadow: 
-     5px 5px 10px #d9d9d9;                                                                                                                      
+     5px 5px 15px rgba(0, 0, 0, 0.1);  
+                                                                                                                    
    &:hover {                                                                                                          
-     border-color: rgba(103, 128, 159, 1.0);                                                                                       
+     transform: translateY(-2px);
+      border-color: #45a049;
+     box-shadow: 
+       5px 5px 20px rgba(0, 0, 0, 0.15);                                                                                       
    }                                                                                                                  
 `;                                                                                                                   
                                                                                                                       
@@ -63,6 +67,7 @@ const PokemonList = () => {
    const [selectedPokemon, setSelectedPokemon] = useState<string | null>(null);
    const [selectedType, setSelectedType] = useState<string | null>(null);
    const [searchTerm, setSearchTerm] = useState('');
+   // checks size of window and sets sidebar to open or closed based on the result
    const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
 
    useEffect(() => {

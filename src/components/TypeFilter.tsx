@@ -15,7 +15,6 @@ const SidebarContainer = styled.div<{ $isOpen: boolean }>`
   z-index: 1000;
 
   @media (max-width: 768px) {
-    width: 240px;
     box-shadow: ${props => props.$isOpen ? '2px 0 8px rgba(0,0,0,0.1)' : 'none'};
   }
 `;
@@ -40,6 +39,11 @@ const ToggleButton = styled.button`
 
   @media (max-width: 768px) {
     display: block;
+
+    &:hover {
+      background-color: #45a049;
+      color: white;
+    }
   }
 `;
 
@@ -55,6 +59,7 @@ const TypeButton = styled.button<{ $isSelected: boolean }>`
   
   &:hover {
     background-color: ${props => props.$isSelected ? '#45a049' : '#f0f0f0'};
+    border-color: #45a049;
   }
 `;
 
