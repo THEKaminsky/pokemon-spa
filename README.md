@@ -1,12 +1,11 @@
 # 🎮 Pokédex Web App - Create React App
 Pokédex built with React and TypeScript. Browse, search, and learn about the original 151 Pokémon!
 
-## Available Scripts
-
-- Search Pokémon by name
+-  Search Pokémon by name
 -  Filter by type (Fire, Water, etc.)
 -  Play Pokémon cries
 
+## Available Scripts
 ### `npm start`
 
 Runs the app in the development mode.\
