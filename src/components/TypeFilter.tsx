@@ -2,15 +2,39 @@ import React from 'react';
 import styled from 'styled-components';
 import { capitalize } from '../utils/stringUtils';
 
-const SidebarContainer = styled.div`
+const SidebarContainer = styled.div<{ $isOpen: boolean }>`
   width: 200px;
   padding: 0 20px;
   background-color: #f5f5f5;
   height: 100vh;
   position: fixed;
-  left: 0;
+  left: ${props => props.$isOpen ? '0' : '-240px'};
   top: 0;
   overflow-y: auto;
+  transition: left 0.3s ease;
+  z-index: 1000;
+
+  @media (max-width: 768px) {
+    width: 240px;
+    box-shadow: ${props => props.$isOpen ? '2px 0 8px rgba(0,0,0,0.1)' : 'none'};
+  }
+`;
+
+const ToggleButton = styled.button`
+  display: none;
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  z-index: 1001;
+  padding: 8px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
 `;
 
 const TypeButton = styled.button<{ $isSelected: boolean }>`
@@ -31,6 +55,8 @@ const TypeButton = styled.button<{ $isSelected: boolean }>`
 interface TypeFilterProps {
   selectedType: string | null;
   onTypeSelect: (type: string | null) => void;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 const pokemonTypes = [
@@ -39,9 +65,13 @@ const pokemonTypes = [
   'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'
 ];
 
-const TypeFilter = ({ selectedType, onTypeSelect } : TypeFilterProps) => {
+const TypeFilter = ({ selectedType, onTypeSelect, isOpen, onToggle } : TypeFilterProps) => {
   return (
-    <SidebarContainer>
+    <>
+      <ToggleButton onClick={onToggle}>
+        {isOpen ? '✕' : '☰'}
+      </ToggleButton>
+      <SidebarContainer $isOpen={isOpen}>
       <h2>Filter by Type</h2>
       <TypeButton
         $isSelected={selectedType === null}
@@ -59,6 +89,7 @@ const TypeFilter = ({ selectedType, onTypeSelect } : TypeFilterProps) => {
         </TypeButton>
       ))}
     </SidebarContainer>
+    </>
   );
 };
 
