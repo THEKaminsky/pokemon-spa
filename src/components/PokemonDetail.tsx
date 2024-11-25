@@ -10,7 +10,7 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,22 +19,19 @@ const ModalOverlay = styled.div`
                                                                                                                     
 const DetailContainer = styled.div`                                                                                  
   max-width: 800px;                                                                                                  
-  margin: 0 auto;                                                                                                    
   padding: 30px;
   background: white;
   border-radius: 8px;
-  position: relative;
   display: flex;
   gap: 40px;
 `;
 
 const ImageSection = styled.div`
   flex-shrink: 0;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 250px;
   border-radius: 16px;
-  padding: 20px;
-  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  padding: 25px;
   box-shadow: 
     20px 20px 60px #d9d9d9,
     -20px -20px 60px #ffffff;
@@ -59,10 +56,13 @@ const DetailSection = styled.div`
   flex-grow: 1;
   
   h1 {
-    margin: 0 0 20px 0;
+    margin: 10px 0 20px 0;
     color: #2e3057;
     font-size: 2.5em;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 15px;
   }
   
   .stats {
@@ -80,6 +80,27 @@ const DetailSection = styled.div`
         min-width: 80px;
         color: #2e3057;
       }
+    }
+  }
+`;
+
+const AbilitiesList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  li {
+    background: #f5f5f5;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.9em;
+    
+    &.hidden {
+      background: #e0e0e0;
+      font-style: italic;
     }
   }
 `;
@@ -111,7 +132,7 @@ interface PokemonDetailViewProps {
   onClose: () => void;
 }
 
-const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({ pokemonName, onClose }) => {                                                                          
+const PokemonDetailView = ({ pokemonName, onClose }: PokemonDetailViewProps) => {                                                                          
   const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);                                               
   const [loading, setLoading] = useState(true);                                                                      
                                                                                                                     
@@ -131,7 +152,7 @@ useEffect(() => {
 }, [pokemonName]);                                                                                                        
                                                                                                                     
 if (loading) return <div>Loading...</div>;                                                                         
-if (!pokemon) return <div>Pokemon not found</div>;                                                                 
+if (!pokemon) return <div>Pokemon not found</div>;      
                                                                                                                     
 return (                                                                                                           
     <ModalOverlay onClick={onClose}>
@@ -141,18 +162,44 @@ return (
           <img src={pokemon.sprites.front_default} alt={pokemon.name} />
         </ImageSection>
         <DetailSection>
-          <h1>{capitalize(pokemon.name)}</h1>
+          <h1>
+            {capitalize(pokemon.name)}
+            {pokemon.cries?.latest && (
+              <button 
+                onClick={() => new Audio(pokemon.cries?.latest).play()}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '24px'
+                }}
+              >
+                🔊
+              </button>
+            )}
+          </h1>
           <div className="stats">
             <p><strong>Height:</strong> {pokemon.height / 10}m</p>
             <p><strong>Weight:</strong> {pokemon.weight / 10}kg</p>
             <p><strong>Types:</strong> {pokemon.types.map(t => 
               capitalize(t.type.name)
             ).join(', ')}</p>
+            <p>
+              <strong>Abilities:</strong>
+              <AbilitiesList>
+                {pokemon.abilities.map(a => (
+                  <li key={a.ability.name} className={a.is_hidden ? 'hidden' : ''}>
+                    {capitalize(a.ability.name)}
+                    {a.is_hidden && ' (Hidden)'}
+                  </li>
+                ))}
+              </AbilitiesList>
+            </p>
           </div>
         </DetailSection>
       </DetailContainer>    
     </ModalOverlay>                                                                                           
-);                                                                                                                 
+  );                                                                                                                 
 };                                                                                                                   
                                                                                                                       
  export default PokemonDetailView;   

@@ -1,6 +1,11 @@
 export type PokemonListItem = {                                                                                   
     name: string;                                                                                                      
-    url: string;                                                                                                       
+    url: string;
+    types?: Array<{
+      type: {
+        name: string;
+      };
+    }>;                                                                                                       
   }                                                                                                                    
                                                                                                                        
   export type PokemonDetail = {                                                                                     
@@ -15,7 +20,18 @@ export type PokemonListItem = {
       type: {                                                                                                          
         name: string;                                                                                                  
       };                                                                                                               
-    }[];                                                                                                               
+    }[];
+    abilities: {
+      ability: {
+        name: string;
+      };
+      is_hidden: boolean;
+    }[];
+    cries?: {
+      latest: string;
+      legacy: string
+    };  
+    cryUrl?: string                                                                                             
   }                                                                                                                    
                                                                                                                        
   export type PokemonListResponse = {                                                                               

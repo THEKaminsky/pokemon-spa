@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { capitalize } from '../utils/stringUtils';
 
 const SidebarContainer = styled.div`
   width: 200px;
@@ -9,20 +10,21 @@ const SidebarContainer = styled.div`
   position: fixed;
   left: 0;
   top: 0;
+  overflow-y: auto;
 `;
 
-const TypeButton = styled.button<{ isSelected: boolean }>`
+const TypeButton = styled.button<{ $isSelected: boolean }>`
   width: 100%;
   padding: 8px;
   margin: 4px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
-  background-color: ${props => props.isSelected ? '#4CAF50' : 'white'};
-  color: ${props => props.isSelected ? 'white' : 'black'};
+  background-color: ${props => props.$isSelected ? '#4CAF50' : 'white'};
+  color: ${props => props.$isSelected ? 'white' : 'black'};
   cursor: pointer;
   
   &:hover {
-    background-color: ${props => props.isSelected ? '#45a049' : '#f0f0f0'};
+    background-color: ${props => props.$isSelected ? '#45a049' : '#f0f0f0'};
   }
 `;
 
@@ -37,12 +39,12 @@ const pokemonTypes = [
   'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'
 ];
 
-const TypeFilter: React.FC<TypeFilterProps> = ({ selectedType, onTypeSelect }) => {
+const TypeFilter = ({ selectedType, onTypeSelect } : TypeFilterProps) => {
   return (
     <SidebarContainer>
       <h2>Filter by Type</h2>
       <TypeButton
-        isSelected={selectedType === null}
+        $isSelected={selectedType === null}
         onClick={() => onTypeSelect(null)}
       >
         All Types
@@ -50,10 +52,10 @@ const TypeFilter: React.FC<TypeFilterProps> = ({ selectedType, onTypeSelect }) =
       {pokemonTypes.map(type => (
         <TypeButton
           key={type}
-          isSelected={selectedType === type}
+          $isSelected={selectedType === type}
           onClick={() => onTypeSelect(type)}
         >
-          {type.charAt(0).toUpperCase() + type.slice(1)}
+          {capitalize(type)}
         </TypeButton>
       ))}
     </SidebarContainer>
