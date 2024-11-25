@@ -33,8 +33,8 @@ const ImageSection = styled.div`
   border-radius: 16px;
   padding: 25px;
   box-shadow: 
-    20px 20px 60px #d9d9d9,
-    -20px -20px 60px #ffffff;
+    5px 5px 30px #d9d9d9,
+    -5px -5px 30px #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,6 +98,7 @@ const AbilitiesList = styled.ul`
     border-radius: 16px;
     font-size: 0.9em;
     
+    // hidden abilities
     &.hidden {
       background: #e0e0e0;
       font-style: italic;
