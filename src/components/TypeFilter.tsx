@@ -24,13 +24,19 @@ const ToggleButton = styled.button`
   display: none;
   position: fixed;
   left: 10px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1001;
-  padding: 8px;
-  background: white;
+  padding: 12px 16px;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+  color: #333;
+  
+  &:hover {
+    background-color: #f0f0f0;
+  }
 
   @media (max-width: 768px) {
     display: block;
@@ -69,7 +75,7 @@ const TypeFilter = ({ selectedType, onTypeSelect, isOpen, onToggle } : TypeFilte
   return (
     <>
       <ToggleButton onClick={onToggle}>
-        {isOpen ? '✕' : '☰'}
+        {isOpen ? '◀' : '▶'}
       </ToggleButton>
       <SidebarContainer $isOpen={isOpen}>
       <h2>Filter by Type</h2>
