@@ -11,10 +11,16 @@ const Container = styled.div`
   display: flex;
 `;
 
-const MainContent = styled.div`
-  margin-left: 240px;
-  width: calc(100% - 200px);
+const MainContent = styled.div<{ $sidebarOpen: boolean }>`
+  margin-left: ${props => props.$sidebarOpen ? '240px' : '0'};
+  width: ${props => props.$sidebarOpen ? 'calc(100% - 240px)' : '100%'};
   position: relative;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: 100%;
+  }
 `;
 
 const LoadingOverlay = styled.div`
@@ -57,6 +63,7 @@ const PokemonList = () => {
    const [selectedPokemon, setSelectedPokemon] = useState<string | null>(null);
    const [selectedType, setSelectedType] = useState<string | null>(null);
    const [searchTerm, setSearchTerm] = useState('');
+   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
                                                                                                                       
    useEffect(() => {                                                                                                  
      const fetchPokemon = async () => {                                                                               
@@ -76,8 +83,13 @@ const PokemonList = () => {
                                                                                                                       
    return (
      <Container>
-       <TypeFilter selectedType={selectedType} onTypeSelect={setSelectedType} />
-       <MainContent>
+       <TypeFilter 
+         selectedType={selectedType} 
+         onTypeSelect={setSelectedType}
+         isOpen={isSidebarOpen}
+         onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+       />
+       <MainContent $sidebarOpen={isSidebarOpen}>
          {loading && (
            <LoadingOverlay>
              <div>Loading...</div>
